@@ -1,0 +1,12 @@
+node_modules/
+node_modules/front/
+node_modules/backend/
+dist/
+.env
+.env.local
+backend/.env
+front/dist/
+front/.vscode/
+front/.angular/
+backend/dist/
+.

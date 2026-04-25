@@ -1,0 +1,26 @@
+{
+  "name": "frontsub14entregafinal",
+  "version": "1.0.0",
+  "description": "Monorepo con Angular + Nest + MongoDB",
+  "private": true,
+  "workspaces": [
+    "front",
+    "backend"
+  ],
+  "scripts": {
+    "start:front": "npm run start -w front",
+    "start:backend": "npm run start:dev -w backend",
+    "build": "npm run build -w front && npm run build -w backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesm17/frontSub14EntregaFinal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesm17/frontSub14EntregaFinal/issues"
+  },
+  "homepage": "https://github.com/jesm17/frontSub14EntregaFinal#readme"
+}
