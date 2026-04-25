@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './modules/auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { GamesModule } from './modules/games/games.module';
+import { CartModule } from './modules/cart/cart.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
+import { ContactModule } from './modules/contact/contact.module';
+import { SeedModule } from './modules/seed/seed.module';
 
 @Module({
   imports: [
@@ -17,8 +22,15 @@ import { AppService } from './app.service';
           'mongodb://127.0.0.1:27017/frontsub14',
       }),
     }),
+    AuthModule,
+    UsersModule,
+    GamesModule,
+    CartModule,
+    FavoritesModule,
+    ContactModule,
+    SeedModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

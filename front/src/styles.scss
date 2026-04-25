@@ -1,1 +1,827 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --white-color: #ffffff;
+  --primary-color: #030253;
+  --favorite-color: #d2ff46;
+  --layout-max-width: 1200px;
+  --layout-padding-x: 1.25rem;
+  --header-bg: #000040;
+  --header-text: #ffffff;
+}
+
+* {
+  font-family: 'Space Grotesk', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 1.5rem var(--layout-padding-x) 2rem;
+}
+
+.site-header,
+.site-footer {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+}
+.site-header_inner,
+.site-footer_inner {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: 1rem var(--layout-padding-x);
+}
+.site-header_top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.site-header_top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 0.65rem;
+}
+.site-header_brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 92px;
+  min-height: 30px;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+.site-header_actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.site-header_actions a {
+  position: relative;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.cart-badge {
+  position: absolute;
+  top: -0.45rem;
+  right: -0.55rem;
+  min-width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(3, 2, 83, 0.12);
+  border-radius: 10px;
+  color: #333;
+  background: #f7f8ff;
+}
+
+.pagination-controls {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.pagination-controls button {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+}
+
+.pagination-controls button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.site-nav {
+  padding-top: 0.65rem;
+}
+.site-nav_list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.site-header a,
+.site-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.78rem;
+  text-transform: none;
+}
+.site-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  z-index: 9999;
+}
+
+.toast {
+  min-width: 250px;
+  max-width: 360px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 0.65rem 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  background: #fff;
+}
+
+.toast--error {
+  border-left: 4px solid #dc2626;
+}
+
+.toast button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #4b5563;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.games-page-heading,
+.cart-page-heading {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.games-page-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.games-page-heading {
+  margin: 0 0 1.2rem;
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+
+.home-section {
+  margin-bottom: 2.2rem;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.15rem;
+  font-weight: 600;
+  margin: 0 0 1.4rem;
+}
+
+.game-slider {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+.game-slider_viewport {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.game-slider_track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 0.25rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.game-slider_track::-webkit-scrollbar {
+  display: none;
+}
+
+.game-slider_btn {
+  align-self: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(3, 2, 83, 0.1);
+  border-radius: 6px;
+  background: #f8f8f8;
+  color: #555;
+  cursor: pointer;
+}
+
+.game-slider_btn:hover {
+  background: #fff;
+}
+
+.game-card--slider {
+  flex: 0 0 260px;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  min-height: 350px;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.game-card--slider .game-card-header {
+  position: relative;
+}
+
+.game-card--slider .game-card-header img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.game-card-favorite {
+  position: absolute;
+  top: -10px;
+  right: 8px;
+  z-index: 2;
+  margin: 0;
+  padding: 6px 8px 12px;
+  border: none;
+  background: #0d0d0d;
+  color: #fff;
+  border-radius: 0 0 5px 5px;
+  cursor: pointer;
+}
+
+.game-card-favorite i {
+  font-size: 14px;
+  color: inherit;
+}
+
+.game-card-favorite i.active {
+  color: #d2ff46;
+}
+
+.game-card--slider .game-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+}
+
+.game-card--slider .game-card-content h3 {
+  margin: 0 0 0.6rem;
+  font-size: 2.35rem;
+  line-height: 1.05;
+}
+
+.game-card--slider .platforms {
+  font-size: 0.95rem;
+}
+
+.game-card--slider .game-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.game-card--slider .game-card-footer strong {
+  font-size: 2.1rem;
+  font-weight: 400;
+}
+
+.game-card--catalog {
+  width: auto;
+  min-height: 350px;
+  flex: initial;
+}
+
+.btn-add-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-add-cart i {
+  font-size: 1rem;
+}
+
+.detail-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 3.25rem;
+}
+
+.detail-hero__media {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detail-hero__img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-hero__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-hero__top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.35rem;
+}
+
+.detail-favorite {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: none;
+  background: transparent;
+  color: #444;
+  cursor: pointer;
+}
+
+.detail-favorite i.active {
+  color: #d2ff46;
+}
+
+.detail-favorite__label {
+  font-size: 0.9rem;
+}
+
+.detail-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2.7rem, 4vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.detail-desc {
+  margin: 0 0 2rem;
+  color: #3f3f3f;
+  line-height: 1.45;
+  font-size: 1.9rem;
+}
+
+.detail-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.detail-price {
+  font-size: clamp(2.6rem, 3.2vw, 3.7rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.btn-add-cart--large {
+  width: 3.25rem;
+  height: 3.25rem;
+  background: #f7f7f7;
+  border: 1px solid #ececec;
+  color: #c8c8c8;
+}
+
+.detail-related {
+  border-top: 1px solid rgba(3, 2, 83, 0.08);
+  padding-top: 1.8rem;
+}
+
+.detail-related__title {
+  margin: 0 0 1.4rem;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  font-weight: 500;
+}
+
+.detail-related__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.game-card--related {
+  width: auto;
+  min-height: 350px;
+  flex: initial;
+}
+.game-card-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.game-card-content {
+  text-align: center;
+}
+.game-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .detail-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-related__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .games-page-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-card--slider {
+    flex-basis: 230px;
+    width: 230px;
+  }
+}
+
+@media (max-width: 600px) {
+  .games-page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-related__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .game-slider {
+    grid-template-columns: 1fr;
+  }
+
+  .game-slider_btn {
+    display: none;
+  }
+
+  .site-nav_list {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+.auth-page,
+.profile-page,
+.contact-page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.auth-container {
+  background: #fff;
+  border: 1px solid rgba(3, 2, 83, 0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 480px;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.auth-input,
+.contact-input,
+.contact-textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.auth-btn,
+.contact-btn {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 2rem;
+  border: 1px dashed rgba(3, 2, 83, 0.2);
+  border-radius: 12px;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cart-item {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.75rem;
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.cart-item_media img {
+  width: 82px;
+  height: 82px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.cart-item_title {
+  margin: 0 0 0.2rem;
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.cart-item_title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-item_platforms {
+  margin: 0;
+  color: #6f6f6f;
+  font-size: 0.9rem;
+}
+
+.cart-item_actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.cart-item_price {
+  font-size: 1.9rem;
+  white-space: nowrap;
+}
+
+.cart-item_remove {
+  border: none;
+  background: transparent;
+  color: #d33;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.cart-summary {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 1rem;
+}
+
+.cart-summary_title {
+  margin: 0 0 1rem;
+  font-size: 2rem;
+}
+
+.cart-summary_row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #4f4f4f;
+  padding: 0.35rem 0;
+}
+
+.cart-summary_row--total {
+  margin-top: 0.35rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #e6e6e6;
+  color: #111;
+  font-size: 1.15rem;
+}
+
+.cart-summary_btn {
+  width: 100%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #000766;
+  color: #fff;
+  padding: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-table {
+  width: 100%;
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.admin-add-btn {
+  border: none;
+  border-radius: 6px;
+  background: #4ade80;
+  color: #0b3a13;
+  font-weight: 600;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+}
+
+.admin-table-container {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+}
+
+.admin-games-table {
+  border-collapse: collapse;
+}
+
+.admin-games-table th,
+.admin-games-table td {
+  text-align: left;
+  padding: 0.95rem 0.7rem;
+  border-bottom: 1px solid #eceff3;
+  font-size: 0.9rem;
+}
+
+.admin-games-table th {
+  color: #6b7280;
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.admin-action-btn {
+  border: none;
+  border-radius: 4px;
+  width: 1.6rem;
+  height: 1.6rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-action-btn--edit {
+  background: #0ea5e9;
+}
+
+.admin-action-btn--delete {
+  background: #ef4444;
+}
+
+.admin-game-form {
+  background: #efefef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-game-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 0.95fr;
+  gap: 1rem;
+}
+
+.admin-game-form__image-panel {
+  border: 1px solid #d7d7d7;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: #f7f7f7;
+}
+
+.admin-game-form__preview {
+  height: 220px;
+  border: 1px solid #cdcdcd;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.admin-game-form__preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-game-form__preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: #7b7b7b;
+}
+
+.admin-game-form__preview-placeholder i {
+  font-size: 2.8rem;
+}
+
+.admin-game-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.admin-game-form__fields textarea {
+  min-height: 150px;
+}
+
+.admin-game-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.admin-game-form__save {
+  min-width: 130px;
+  background: #060a67;
+}
+
+.admin-game-form__cancel {
+  border: none;
+  border-radius: 6px;
+  min-width: 130px;
+  padding: 0.85rem;
+  background: #c81e1e;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-game-form__grid {
+    grid-template-columns: 1fr;
+  }
+}
