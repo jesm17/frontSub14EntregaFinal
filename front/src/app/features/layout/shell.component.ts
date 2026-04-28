@@ -53,8 +53,35 @@ import { ToastService } from '../../core/services/toast.service';
     </div>
     <main class="main"><router-outlet /></main>
     <footer class="site-footer">
-      <div class="site-footer_inner">
-        <div class="site-footer_block"><h2>Gaming Store</h2></div>
+      <div class="site-footer_inner site-footer_inner--split">
+        <div class="site-footer_col site-footer_col--contact">
+          <h2 class="site-footer_heading">
+            <a routerLink="/contact">Contactános</a>
+          </h2>
+          <ul class="site-footer_list">
+            <li>
+              <i class="fas fa-phone" aria-hidden="true"></i>
+              <span>xxxxxxxxxx</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              <span>xxxxxxxxxx</span>
+            </li>
+          </ul>
+        </div>
+        <div class="site-footer_col site-footer_col--social">
+          <h2 class="site-footer_heading">Redes Sociales</h2>
+          <ul class="site-footer_list">
+            <li>
+              <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              <span>xxxxxxxxxx</span>
+            </li>
+            <li>
+              <i class="fab fa-instagram" aria-hidden="true"></i>
+              <span>xxxxxxxxxx</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   `,
