@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { fieldErrorMessage, parseHttpError, showFieldError } from '../../core/validation-helpers';
 
@@ -48,7 +49,12 @@ import { fieldErrorMessage, parseHttpError, showFieldError } from '../../core/va
               <p id="err-login-password" class="auth-field-msg auth-field-msg--error">{{ errMsg('password') }}</p>
             }
           </div>
-          <button class="auth-btn" type="submit">Entrar</button>
+          @if (statusMessage(); as status) {
+            <p class="auth-field-msg" role="status" aria-live="polite">{{ status }}</p>
+          }
+          <button class="auth-btn" type="submit" [disabled]="isSubmitting()">
+            {{ isSubmitting() ? 'Ingresando...' : 'Entrar' }}
+          </button>
           <p class="auth-link">No tienes cuenta? <a routerLink="/signup">Registrate</a></p>
         </form>
       </div>
@@ -62,6 +68,8 @@ export class LoginComponent {
 
   readonly submitted = signal(false);
   readonly formError = signal<string | null>(null);
+  readonly statusMessage = signal<string | null>(null);
+  readonly isSubmitting = signal(false);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email, Validators.maxLength(254)]],
@@ -69,16 +77,26 @@ export class LoginComponent {
   });
 
   submit() {
+    if (this.isSubmitting()) return;
     this.submitted.set(true);
     this.formError.set(null);
+    this.statusMessage.set(null);
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    this.auth.login(this.form.getRawValue()).subscribe({
-      next: () => this.router.navigateByUrl('/catalog'),
-      error: (err) => this.formError.set(parseHttpError(err)),
-    });
+    this.isSubmitting.set(true);
+    this.statusMessage.set('Validando credenciales...');
+    this.auth
+      .login(this.form.getRawValue())
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: () => {
+          this.statusMessage.set('Ingreso exitoso. Redirigiendo...');
+          this.router.navigateByUrl('/catalog');
+        },
+        error: (err) => this.formError.set(parseHttpError(err)),
+      });
   }
 
   showErr(control: 'email' | 'password'): boolean {

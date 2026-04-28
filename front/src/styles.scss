@@ -969,6 +969,11 @@ router-outlet + * {
   cursor: pointer;
 }
 
+.auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .cart-empty {
   text-align: center;
   padding: 2rem;
